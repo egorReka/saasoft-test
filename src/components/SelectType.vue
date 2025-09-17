@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const value = defineModel<string>()
+</script>
 
 <template>
-  <select class="select-type">">
+  <select class="select-type" v-model="value">
     <option value="local">Локальная</option>
     <option value="ldap">LDAP</option>
   </select>

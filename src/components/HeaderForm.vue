@@ -1,12 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRecordsStore } from '@/stores/records.store';
+
+
+const recordsStore = useRecordsStore();
+</script>
 
 <template>
   <div class="header">
     <div class="header__wrapper">
       <h1 class="header__title">Учетные записи</h1>
 
-      <button class="header__button" type="button" title="добавить новую запись"
-        aria-label="Добавить новую запись."></button>
+      <button class="header__button" type="button" title="добавить новую запись" aria-label="Добавить новую запись."
+        @click="recordsStore.addRecord"></button>
     </div>
 
     <p class="header__description"><span class="header__icon-info">?</span> Для указания нескольких меток для одной пары

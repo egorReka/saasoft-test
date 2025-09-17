@@ -4,12 +4,14 @@ import IconEye from './icons/IconEye.vue';
 import IconEyeClosed from './icons/IconEyeClosed.vue';
 
 const isViewPassword = ref<boolean>(false);
+const value = defineModel<string>();
+const emit = defineEmits<{ (e: 'blur', event: FocusEvent): void }>();
 </script>
 
 <template>
   <label class="input-password">
-    <input class="input-password__field" :type="isViewPassword ? 'text' : 'password'" name="pass" maxlength="100"
-      required />
+    <input class="input-password__field" :type="isViewPassword ? 'text' : 'password'" name="pass" required
+      @blur="emit('blur', $event)" v-model="value" />
 
     <button class="input-password__button" type="button" aria-label="Показать или скрыть пароль"
       @click="isViewPassword = !isViewPassword">
@@ -28,6 +30,10 @@ const isViewPassword = ref<boolean>(false);
   padding: 5px;
   border: 1px solid var(--color-line);
   border-radius: 5px;
+}
+
+.input-password.input-error {
+  outline: 2px solid var(--color-error);
 }
 
 .input-password:focus-within {

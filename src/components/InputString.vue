@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const value = defineModel<string>()
+</script>
 
 <template>
-  <input class="input-string" />
+  <input class="input-string" v-model="value" />
 </template>
 
 <style scope>
@@ -15,6 +17,10 @@
   background-color: transparent;
   border: 1px solid var(--color-line);
   border-radius: 5px;
+}
+
+.input-string.input-error {
+  outline: 2px solid var(--color-error);
 }
 
 .input-auth::placeholder {

@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import HeaderForm from './components/HeaderForm.vue';
 import InputString from './components/InputString.vue';
 import IconBasket from './components/icons/IconBasket.vue';
 import SelectType from './components/SelectType.vue';
 import InputPassword from './components/InputPassword.vue';
+import { useRecordsStore } from './stores/records.store';
+import { onMounted } from 'vue';
 
-const records = ref([
-  { label: '', type: 'local', login: '', password: '' },
-  { label: '', type: 'ldap', login: '', password: '' },
-]);
+const recordsStore = useRecordsStore();
 
-function removeRecord(index: number) {
-  records.value.splice(index, 1);
-}
-
+onMounted(() => {
+  recordsStore.loadRecords();
+});
 </script>
 
 <template>
@@ -32,22 +29,25 @@ function removeRecord(index: number) {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(record, index) in records" :key="index">
+        <tr v-for="(record) in recordsStore.records" :key="record.id">
           <td>
-            <InputString type="text" maxlength="50" name="label" />
+            <InputString v-model="record.label.value" type="text" name="label"
+              :class="{ 'input-error': record.label.isValid }" @blur="() => recordsStore.validateField()" />
           </td>
           <td>
             <SelectType v-model="record.type" name="select-type" />
           </td>
           <td :colspan="record.type === 'ldap' ? 2 : 1">
-            <InputString type="text" maxlength="100" name="login" required />
+            <InputString v-model="record.login.value" type="text" name="login" required
+              :class="{ 'input-error': record.label.isValid }" @blur="() => recordsStore.validateField()" />
           </td>
           <td v-if="record.type === 'local'">
-            <InputPassword />
+            <InputPassword v-model="record.password.value" @blur="() => recordsStore.validateField()"
+              :class="{ 'input-error': record.label.isValid }" />
           </td>
           <td>
             <button class="records-table__remove" type="button" title="Удалить запись" aria-label="Удалить запись."
-              @click="removeRecord(index)">
+              @click="recordsStore.removeRecord(record.id)">
               <IconBasket />
             </button>
           </td>
