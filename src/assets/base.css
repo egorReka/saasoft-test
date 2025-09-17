@@ -1,7 +1,9 @@
 :root {
   --color-default-white: #ffffff;
   --color-default-black: #000000;
-  --color-text: #222222;
+  --color-text: #515050;
+  --color-acent: #b7dae4;
+  --color-line: #82b0bc;
 }
 
 *,
@@ -9,17 +11,33 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: normal;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 
 body {
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.2;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--color-text);
   background: var(--color-background);
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  padding: 0;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
 }
