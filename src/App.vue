@@ -1,56 +1,57 @@
 <script setup lang="ts">
-import HeaderForm from './components/HeaderForm.vue';
-import InputString from './components/InputString.vue';
-import IconBasket from './components/icons/IconBasket.vue';
-import SelectType from './components/SelectType.vue';
-import InputPassword from './components/InputPassword.vue';
-import { useRecordsStore } from './stores/records.store';
-import { onMounted } from 'vue';
-import type { Record } from './interfaces/record.interface';
+import HeaderForm from './components/HeaderForm.vue'
+import InputString from './components/InputString.vue'
+import IconBasket from './components/icons/IconBasket.vue'
+import SelectType from './components/SelectType.vue'
+import InputPassword from './components/InputPassword.vue'
+import { useRecordsStore } from './stores/records.store'
+import { onMounted } from 'vue'
+import type { Record } from './interfaces/record.interface'
 
-const recordsStore = useRecordsStore();
+const recordsStore = useRecordsStore()
 
 function isRequired(value: string): boolean {
-  return value.trim() !== '';
+  return value.trim() !== ''
 }
 
 function isMaxLength(value: string, maxLength: number): boolean {
-  return value.length <= maxLength;
+  return value.length <= maxLength
 }
 
 function isReadyValidation(record: Record): boolean {
   if (record.type === 'local') {
-    return isRequired(record.login.value) && isRequired(record.password.value);
+    return isRequired(record.login.value) && isRequired(record.password.value)
   }
 
   if (record.type === 'ldap') {
-    return isRequired(record.login.value);
+    return isRequired(record.login.value)
   }
 
-  return false;
+  return false
 }
 
 function validateRecord(record: Record) {
   if (typeof record.label.value === 'string') {
-    record.label.isValid = isMaxLength(record.label.value, 50);
+    record.label.isValid = isMaxLength(record.label.value, 50)
   }
 
-  record.login.isValid = isRequired(record.login.value) && isMaxLength(record.login.value, 100);
+  record.login.isValid = isRequired(record.login.value) && isMaxLength(record.login.value, 100)
 
   if (record.type === 'local') {
-    record.password.isValid = isRequired(record.password.value) && isMaxLength(record.password.value, 100);
+    record.password.isValid =
+      isRequired(record.password.value) && isMaxLength(record.password.value, 100)
   } else {
-    record.password.isValid = true;
+    record.password.isValid = true
   }
 
   if (record.label.isValid && record.login.isValid && record.password.isValid) {
-    recordsStore.updateRecordCompleted(record);
+    recordsStore.updateRecordCompleted(record)
   }
 }
 
 onMounted(() => {
-  recordsStore.loadRecords();
-});
+  recordsStore.loadRecords()
+})
 </script>
 
 <template>
@@ -70,33 +71,53 @@ onMounted(() => {
       <tbody>
         <tr v-for="record in recordsStore.records" :key="record.id">
           <td>
-            <InputString v-if="typeof record.label.value === 'string'" v-model="record.label.value" type="text"
-              name="label" :class="{ 'input-error': !record.label.isValid }"
-              @blur="isReadyValidation(record) && validateRecord(record)" />
+            <InputString
+              v-if="typeof record.label.value === 'string'"
+              v-model="record.label.value"
+              type="text"
+              name="label"
+              :class="{ 'input-error': !record.label.isValid }"
+              @blur="isReadyValidation(record) && validateRecord(record)"
+            />
           </td>
           <td>
-            <SelectType v-model="record.type" name="select-type"
-              @change="isReadyValidation(record) && validateRecord(record)" />
+            <SelectType
+              v-model="record.type"
+              name="select-type"
+              @change="isReadyValidation(record) && validateRecord(record)"
+            />
           </td>
           <td :colspan="record.type === 'ldap' ? 2 : 1">
-            <InputString v-model="record.login.value" type="text" name="login" required
+            <InputString
+              v-model="record.login.value"
+              type="text"
+              name="login"
+              required
               :class="{ 'input-error': !record.login.isValid }"
-              @blur="isReadyValidation(record) && validateRecord(record)" />
+              @blur="isReadyValidation(record) && validateRecord(record)"
+            />
           </td>
           <td v-if="record.type === 'local'">
-            <InputPassword v-model="record.password.value" @blur="isReadyValidation(record) && validateRecord(record)"
-              :class="{ 'input-error': !record.password.isValid }" />
+            <InputPassword
+              v-model="record.password.value"
+              @blur="isReadyValidation(record) && validateRecord(record)"
+              :class="{ 'input-error': !record.password.isValid }"
+            />
           </td>
           <td>
-            <button class="records-table__remove" type="button" title="Удалить запись" aria-label="Удалить запись."
-              @click="recordsStore.removeRecord(record)">
+            <button
+              class="records-table__remove"
+              type="button"
+              title="Удалить запись"
+              aria-label="Удалить запись."
+              @click="recordsStore.removeRecord(record)"
+            >
               <IconBasket />
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-
   </form>
 </template>
 

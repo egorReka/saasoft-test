@@ -20,10 +20,9 @@ body {
   padding: 0;
 }
 
-
 body {
   min-height: 100vh;
-  font-family: "Arial", sans-serif;
+  font-family: 'Arial', sans-serif;
   line-height: 1.2;
   font-size: 14px;
   color: var(--color-text);

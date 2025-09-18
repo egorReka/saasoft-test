@@ -1,20 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import IconEye from './icons/IconEye.vue';
-import IconEyeClosed from './icons/IconEyeClosed.vue';
+import { ref } from 'vue'
+import IconEye from './icons/IconEye.vue'
+import IconEyeClosed from './icons/IconEyeClosed.vue'
 
-const isViewPassword = ref<boolean>(false);
-const value = defineModel<string>();
-const emit = defineEmits<{ (e: 'blur', event: FocusEvent): void }>();
+const isViewPassword = ref<boolean>(false)
+const value = defineModel<string>()
+const emit = defineEmits<{ (e: 'blur', event: FocusEvent): void }>()
 </script>
 
 <template>
   <label class="input-password">
-    <input class="input-password__field" :type="isViewPassword ? 'text' : 'password'" name="pass" autocomplete="off"
-      required @blur="emit('blur', $event)" v-model="value" />
+    <input
+      class="input-password__field"
+      :type="isViewPassword ? 'text' : 'password'"
+      name="pass"
+      autocomplete="off"
+      required
+      @blur="emit('blur', $event)"
+      v-model="value"
+    />
 
-    <button class="input-password__button" type="button" aria-label="Показать или скрыть пароль"
-      @click="isViewPassword = !isViewPassword">
+    <button
+      class="input-password__button"
+      type="button"
+      aria-label="Показать или скрыть пароль"
+      @click="isViewPassword = !isViewPassword"
+    >
       <IconEye class="input-password__icon" v-if="isViewPassword" />
       <IconEyeClosed class="input-password__icon" v-else />
     </button>
