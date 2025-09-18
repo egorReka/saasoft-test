@@ -1,7 +1,7 @@
 export interface Record {
   id: string;
   label: {
-    value: string;
+    value: string | { text: string }[];
     isValid: boolean;
   };
   type: string;

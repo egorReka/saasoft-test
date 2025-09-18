@@ -31,7 +31,9 @@ function isReadyValidation(record: Record): boolean {
 }
 
 function validateRecord(record: Record) {
-  record.label.isValid = isMaxLength(record.label.value, 50);
+  if (typeof record.label.value === 'string') {
+    record.label.isValid = isMaxLength(record.label.value, 50);
+  }
 
   record.login.isValid = isRequired(record.login.value) && isMaxLength(record.login.value, 100);
 
@@ -68,8 +70,8 @@ onMounted(() => {
       <tbody>
         <tr v-for="record in recordsStore.records" :key="record.id">
           <td>
-            <InputString v-model="record.label.value" type="text" name="label"
-              :class="{ 'input-error': !record.label.isValid }"
+            <InputString v-if="typeof record.label.value === 'string'" v-model="record.label.value" type="text"
+              name="label" :class="{ 'input-error': !record.label.isValid }"
               @blur="isReadyValidation(record) && validateRecord(record)" />
           </td>
           <td>
