@@ -10,8 +10,8 @@ const emit = defineEmits<{ (e: 'blur', event: FocusEvent): void }>();
 
 <template>
   <label class="input-password">
-    <input class="input-password__field" :type="isViewPassword ? 'text' : 'password'" name="pass" required
-      @blur="emit('blur', $event)" v-model="value" />
+    <input class="input-password__field" :type="isViewPassword ? 'text' : 'password'" name="pass" autocomplete="off"
+      required @blur="emit('blur', $event)" v-model="value" />
 
     <button class="input-password__button" type="button" aria-label="Показать или скрыть пароль"
       @click="isViewPassword = !isViewPassword">
