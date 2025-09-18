@@ -1,39 +1,27 @@
-# saasoft-test
+![](https://img.shields.io/badge/Vue.js-3.5.18-green?logo=vue.js&logoColor=white)
+![](https://img.shields.io/badge/TypeScript-5.8.0-blue?logo=typescript&logoColor=white)
+![](https://img.shields.io/badge/Pinia-3.0.3-yellow?logo=pinia&logoColor=white)
+![](https://img.shields.io/badge/Vite-7.0.6-purple?logo=vite&logoColor=white)
+![](https://img.shields.io/badge/ESLint-9.31.0-blue?logo=eslint&logoColor=white)
+![](https://img.shields.io/badge/Prettier-3.6.2-pink?logo=prettier&logoColor=white)
 
-This template should help get you started developing with Vue 3 in Vite.
+# Форма управления учетными записями
 
-## Recommended IDE Setup
+Интерфейс управления учетными записями позволяет создавать, редактировать и удалять локальные и LDAP-учетные записи. Поля валидируются при вводе, метки сохраняются как массив объектов, а все данные автоматически сохраняются в Pinia и доступны после перезагрузки страницы. Пользователь может добавлять новые записи, указывать логин, пароль и тип записи, а некорректные поля подсвечиваются.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![alt text](image.png)
 
-## Type Support for `.vue` Imports in TS
+## Начало работы
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+1. Установите `node.js` Поддерживаемая версия сборки `20+`
+2. Установите зависимости с помощью
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```shell
+npm ci
 ```
 
-### Compile and Hot-Reload for Development
+3. Запустите проект с помощью
 
-```sh
+```shell
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
